@@ -30,4 +30,8 @@ public class ClampOpening : MonoBehaviour
             timeOpen = 0;
         }
     }
+
+    public void kampret() {
+        Debug.Log("Kampretos");
+    }
 }
