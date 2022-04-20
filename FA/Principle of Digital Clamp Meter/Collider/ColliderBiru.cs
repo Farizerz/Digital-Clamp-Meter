@@ -7,7 +7,7 @@ public class ColliderBiru : MonoBehaviour
     public static bool isBlueConnected;
 
     void Update() {
-        if(isBlueConnected && !ClampOpening.isOpen) {
+        if(isBlueConnected && !ClampOpening.isOpening) {
             Debug.Log("Enter Blue");
         } else {
             Debug.Log("Exit Blue");
@@ -21,7 +21,7 @@ public class ColliderBiru : MonoBehaviour
     }
 
     void OnTriggerExit(Collider collider) {
-        if(collider.gameObject.name == "ClampCollider" && ClampOpening.isOpen) {
+        if(collider.gameObject.name == "ClampCollider" || ClampOpening.isOpening) {
             
             isBlueConnected = false;
         }

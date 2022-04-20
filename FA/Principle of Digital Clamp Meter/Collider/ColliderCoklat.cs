@@ -7,7 +7,7 @@ public class ColliderCoklat : MonoBehaviour
     public static bool isBrownConnected;
 
     void Update() {
-        if(isBrownConnected && !ClampOpening.isOpen) {
+        if(isBrownConnected && !ClampOpening.isOpening) {
             Debug.Log("Enter Brown");
         } else {
             Debug.Log("Exit Brown");
@@ -22,7 +22,7 @@ public class ColliderCoklat : MonoBehaviour
     }
 
     void OnTriggerExit(Collider collider) {
-        if(collider.gameObject.name == "ClampCollider") {
+        if(collider.gameObject.name == "ClampCollider" || ClampOpening.isOpening) {
             isBrownConnected = false;
         }
 

@@ -9,16 +9,19 @@ using UnityEngine;
 public class ClampOpening : MonoBehaviour
 {
     public GameObject Clamp;
-    public static bool isOpen = false;
+    public static bool isOpening = false;
+    public static bool isOpened = false;
     float timeOpen, timeClose;
 
     // Update is called once per frame
     void Update()
     {
-        if(isOpen) {
+        if(isOpening) {
             timeOpen += Time.deltaTime;
             if(Clamp.transform.localEulerAngles.z <= 90) {
                 Clamp.transform.Rotate(0, 0, timeOpen);
+            } else {
+                isOpened = true;
             }
             timeClose = 0;
             
@@ -26,12 +29,10 @@ public class ClampOpening : MonoBehaviour
             timeClose += Time.deltaTime;
             if(Clamp.transform.localEulerAngles.z > 66) {
                 Clamp.transform.Rotate(0, 0, -timeClose);
+            } else {
+                isOpened = false;
             }
             timeOpen = 0;
         }
-    }
-
-    public void kampret() {
-        Debug.Log("Kampretos");
     }
 }
