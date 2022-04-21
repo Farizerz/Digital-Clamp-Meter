@@ -12,6 +12,7 @@ public class FA_1 : MonoBehaviour
     private float switchingTime;
     public GameObject[] Switch;
     public GameObject[] Light;
+    public GameObject[] HoldIndicator;
 
     [Header("UI")]
     public GameObject RotarySwitchUI;
@@ -21,12 +22,15 @@ public class FA_1 : MonoBehaviour
     public GameObject[] SocketOn;
     public GameObject[] SocketOff;
     public TextMeshProUGUI[] AmpereText;
+    public GameObject[] HoldButton;
+    public GameObject[] HoldText;
 
     [Header("Modifier")]
     public static bool isDragging;
     public int Ampere = 0;
     float increment, decrement;
     public int speed; // untuk mengatur kecepatan perubahan angka
+    bool isHold;
 
 
     // Start is called before the first frame update
@@ -51,7 +55,7 @@ public class FA_1 : MonoBehaviour
         }
 
         //check if clamp is currently dragged or not
-        if(isDragging && ClampMeter[1].active ) {
+        if(isDragging && ClampMeter[1].active) {
             DragInstructionUI.SetActive(false);
             ReleaseDragInstructionUI.SetActive(true);
         } else if(!isDragging && ClampMeter[1].active) {
@@ -60,67 +64,92 @@ public class FA_1 : MonoBehaviour
         }
 
         //if blue wire is connected
-        if(ColliderBiru.isBlueConnected && !ColliderCoklat.isBrownConnected && !ClampOpening.isOpened) {
+        if(ColliderBiru.isBlueConnected && !ColliderCoklat.isBrownConnected && !ClampOpening.isOpened && !isHold) {
             if(increment <= Ampere) {
                 increment+=(Time.deltaTime * speed);
                 var incrementInt = (int) increment;
                 if(incrementInt < 10) {
-                    AmpereText[0].text = "0.0" + incrementInt.ToString("0");
+                    AmpereText[0].text = "0.0" + incrementInt.ToString();
+                    AmpereText[1].text = "0.0" + incrementInt.ToString();
                 } else {
-                    AmpereText[0].text = "0." + incrementInt.ToString("0");
+                    AmpereText[0].text = "0." + incrementInt.ToString();
+                    AmpereText[1].text = "0." + incrementInt.ToString();
                 }
                 decrement += (Time.deltaTime * speed);
             }
         }
 
         //if brown wire is connected
-        if(ColliderCoklat.isBrownConnected && !ColliderBiru.isBlueConnected && !ClampOpening.isOpened) {
+        if(ColliderCoklat.isBrownConnected && !ColliderBiru.isBlueConnected && !ClampOpening.isOpened && !isHold) {
             if(increment <= Ampere) {
                 increment+=(Time.deltaTime * speed);
                 var incrementInt = (int) increment;
-                if(incrementInt < 10) {
-                    AmpereText[0].text = "0.0" + incrementInt.ToString("0");
+                if(incrementInt <= 10) {
+                    AmpereText[0].text = "0.0" + incrementInt.ToString();
+                    AmpereText[1].text = "0.0" + incrementInt.ToString();
+                    Debug.Log(AmpereText[0].text + " " + incrementInt);
                 } else {
-                    AmpereText[0].text = "0." + incrementInt.ToString("0");
+                    AmpereText[0].text = "0." + incrementInt.ToString();
+                    AmpereText[1].text = "0." + incrementInt.ToString();
                 }
                 decrement += (Time.deltaTime * speed);
             }
         }
 
-        //if both wires connedted
-        if(ColliderBiru.isBlueConnected && ColliderCoklat.isBrownConnected && !ClampOpening.isOpened) {
+        //if both wires connected
+        if(ColliderBiru.isBlueConnected && ColliderCoklat.isBrownConnected && !ClampOpening.isOpened && !isHold) {
             ErrorReadingUI.SetActive(true);
         } else {
             ErrorReadingUI.SetActive(false);
         }
 
-        //if the clamp is opening
-        if(ClampOpening.isOpening) {
+        //if no wires connected
+        if(!ColliderBiru.isBlueConnected && !ColliderCoklat.isBrownConnected && !ClampOpening.isOpened && !isHold) {
             if(decrement > 0) {
                 decrement -= (Time.deltaTime * speed);
                 var decrementInt = (int) decrement;
                 if(decrementInt < 10) {
                     AmpereText[0].text = "0.0" + decrementInt.ToString("0");
+                    AmpereText[1].text = "0.0" + decrementInt.ToString("0");
                 } else {
                     AmpereText[0].text = "0." + decrementInt.ToString("0");
+                    AmpereText[1].text = "0." + decrementInt.ToString("0");
+                }
+                increment -= (Time.deltaTime * speed);
+            }
+        }
+
+        //if the clamp is opening
+        if(ClampOpening.isOpening && !isHold) {
+            if(decrement > 0) {
+                decrement -= (Time.deltaTime * speed);
+                var decrementInt = (int) decrement;
+                if(decrementInt < 10) {
+                    AmpereText[0].text = "0.0" + decrementInt.ToString("0");
+                    AmpereText[1].text = "0.0" + decrementInt.ToString("0");
+                } else {
+                    AmpereText[0].text = "0." + decrementInt.ToString("0");
+                    AmpereText[1].text = "0." + decrementInt.ToString("0");
                 }
                 increment -= (Time.deltaTime * speed);
             }
         }
 
         //if the socket is turned off
-        if(SocketOn[0].active || SocketOn[1].active || SocketOn[2].active || SocketOn[3].active) {
+        if(SocketOn[0].active || SocketOn[1].active || SocketOn[2].active || SocketOn[3].active && !isHold) {
             if(decrement > Ampere) {
                 decrement -= (Time.deltaTime * speed);
                 var decrementInt = (int) decrement;
                 if(decrementInt < 10) {
                     AmpereText[0].text = "0.0" + decrementInt.ToString("0");
+                    AmpereText[1].text = "0.0" + decrementInt.ToString("0");
                 } else {
                     AmpereText[0].text = "0." + decrementInt.ToString("0");
+                    AmpereText[1].text = "0." + decrementInt.ToString("0");
                 }
                 increment -= (Time.deltaTime * speed);
             }
-        }        
+        }
     }
 
     public void changeMode() {
@@ -129,7 +158,7 @@ public class FA_1 : MonoBehaviour
     }
 
     public void socket1ON() {
-        Ampere += 9;
+        Ampere+9;
         SocketOn[0].SetActive(false);
         SocketOff[0].SetActive(true);
         Light[0].SetActive(true);
@@ -137,7 +166,6 @@ public class FA_1 : MonoBehaviour
     }
     public void socket1OFF() {
         Ampere -= 9;
-        //AmpereText[0].text = "0.0" + Ampere.ToString();
         SocketOn[0].SetActive(true);
         SocketOff[0].SetActive(false);
         Light[0].SetActive(false);
@@ -153,7 +181,6 @@ public class FA_1 : MonoBehaviour
     }
     public void socket2OFF() {
         Ampere -= 11;
-        //AmpereText[0].text = "0.0" + Ampere.ToString();
         SocketOn[1].SetActive(true);
         SocketOff[1].SetActive(false);
         Light[1].SetActive(false);
@@ -169,7 +196,6 @@ public class FA_1 : MonoBehaviour
     }
     public void socket3OFF() {
         Ampere -= 27;
-        //AmpereText[0].text = "0.0" + Ampere.ToString();
         SocketOn[2].SetActive(true);
         SocketOff[2].SetActive(false);
         Light[2].SetActive(false);
@@ -185,10 +211,31 @@ public class FA_1 : MonoBehaviour
     }
     public void socket4OFF() {
         Ampere -= 27;
-        //AmpereText[0].text = "0.0" + Ampere.ToString();
         SocketOn[3].SetActive(true);
         SocketOff[3].SetActive(false);
         Light[3].SetActive(false);
         Switch[3].transform.Rotate(30, 0, 0);
-    }                
+    }      
+
+    public void holdButton() {
+        isHold = true;
+        HoldText[0].SetActive(true);
+        HoldText[1].SetActive(true);
+        HoldText[2].SetActive(true);
+        HoldIndicator[0].SetActive(true);
+        HoldIndicator[1].SetActive(true);
+        HoldButton[0].SetActive(false);
+        HoldButton[1].SetActive(true);
+    }
+
+    public void releaseHold() {
+        isHold = false;
+        HoldText[0].SetActive(false);
+        HoldText[1].SetActive(false);
+        HoldText[2].SetActive(false);
+        HoldIndicator[0].SetActive(false);
+        HoldIndicator[1].SetActive(false);
+        HoldButton[0].SetActive(true);
+        HoldButton[1].SetActive(false);
+    }          
 }
