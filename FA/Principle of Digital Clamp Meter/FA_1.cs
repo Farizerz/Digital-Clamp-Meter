@@ -24,6 +24,11 @@ public class FA_1 : MonoBehaviour
     public TextMeshProUGUI[] AmpereText;
     public GameObject[] HoldButton;
     public GameObject[] HoldText;
+    public GameObject PlayUI;
+    public GameObject StartUI;
+    public GameObject PlayButton;
+    public GameObject PauseButton;
+    public GameObject ResumeButton;
 
     [Header("Modifier")]
     public static bool isDragging;
@@ -31,12 +36,13 @@ public class FA_1 : MonoBehaviour
     float increment, decrement;
     public int speed; // untuk mengatur kecepatan perubahan angka
     bool isHold;
+    public string scene;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        Time.timeScale = 0;
     }
 
     // Update is called once per frame
@@ -75,7 +81,6 @@ public class FA_1 : MonoBehaviour
                     AmpereText[0].text = "0." + incrementInt.ToString();
                     AmpereText[1].text = "0." + incrementInt.ToString();
                 }
-                decrement += (Time.deltaTime * speed);
             }
         }
 
@@ -84,7 +89,7 @@ public class FA_1 : MonoBehaviour
             if(increment <= Ampere) {
                 increment+=(Time.deltaTime * speed);
                 var incrementInt = (int) increment;
-                if(incrementInt <= 10) {
+                if(incrementInt < 10) {
                     AmpereText[0].text = "0.0" + incrementInt.ToString();
                     AmpereText[1].text = "0.0" + incrementInt.ToString();
                     Debug.Log(AmpereText[0].text + " " + incrementInt);
@@ -92,7 +97,6 @@ public class FA_1 : MonoBehaviour
                     AmpereText[0].text = "0." + incrementInt.ToString();
                     AmpereText[1].text = "0." + incrementInt.ToString();
                 }
-                decrement += (Time.deltaTime * speed);
             }
         }
 
@@ -158,7 +162,7 @@ public class FA_1 : MonoBehaviour
     }
 
     public void socket1ON() {
-        Ampere+9;
+        Ampere += 9;
         SocketOn[0].SetActive(false);
         SocketOff[0].SetActive(true);
         Light[0].SetActive(true);
@@ -170,6 +174,7 @@ public class FA_1 : MonoBehaviour
         SocketOff[0].SetActive(false);
         Light[0].SetActive(false);
         Switch[0].transform.Rotate(30, 0, 0);
+        decrement = increment;
     }
 
     public void socket2ON() {
@@ -185,6 +190,7 @@ public class FA_1 : MonoBehaviour
         SocketOff[1].SetActive(false);
         Light[1].SetActive(false);
         Switch[1].transform.Rotate(30, 0, 0);
+        decrement = increment;
     }
 
     public void socket3ON() {
@@ -200,6 +206,7 @@ public class FA_1 : MonoBehaviour
         SocketOff[2].SetActive(false);
         Light[2].SetActive(false);
         Switch[2].transform.Rotate(30, 0, 0);
+        decrement = increment;
     }
 
     public void socket4ON() {
@@ -215,6 +222,7 @@ public class FA_1 : MonoBehaviour
         SocketOff[3].SetActive(false);
         Light[3].SetActive(false);
         Switch[3].transform.Rotate(30, 0, 0);
+        decrement = increment;
     }      
 
     public void holdButton() {
@@ -237,5 +245,25 @@ public class FA_1 : MonoBehaviour
         HoldIndicator[1].SetActive(false);
         HoldButton[0].SetActive(true);
         HoldButton[1].SetActive(false);
-    }          
+    }
+
+    public void play() {
+        Time.timeScale = 1;
+        PlayUI.SetActive(true);
+        StartUI.SetActive(false);
+        PlayButton.SetActive(false);
+        PauseButton.SetActive(true);
+    }
+
+    public void pause() {
+        Time.timeScale = 0;
+        ResumeButton.SetActive(true);
+        PauseButton.SetActive(false);        
+    }
+
+    public void resume() {
+        Time.timeScale = 1;
+        ResumeButton.SetActive(false);
+        PauseButton.SetActive(true);        
+    }      
 }
