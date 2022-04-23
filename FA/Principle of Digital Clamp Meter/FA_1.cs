@@ -86,6 +86,7 @@ public class FA_1 : MonoBehaviour
 
         //if brown wire is connected
         if(ColliderCoklat.isBrownConnected && !ColliderBiru.isBlueConnected && !ClampOpening.isOpened && !isHold) {
+            decrement = increment;
             if(increment <= Ampere) {
                 increment+=(Time.deltaTime * speed);
                 var incrementInt = (int) increment;
@@ -122,10 +123,10 @@ public class FA_1 : MonoBehaviour
                 increment -= (Time.deltaTime * speed);
             }
         }
-
+    
         //if the clamp is opening
         if(ClampOpening.isOpening && !isHold) {
-            if(decrement > 0) {
+            if(decrement > 1) {
                 decrement -= (Time.deltaTime * speed);
                 var decrementInt = (int) decrement;
                 if(decrementInt < 10) {
@@ -138,10 +139,11 @@ public class FA_1 : MonoBehaviour
                 increment -= (Time.deltaTime * speed);
             }
         }
-
+    
+    
         //if the socket is turned off
-        if(SocketOn[0].active || SocketOn[1].active || SocketOn[2].active || SocketOn[3].active && !isHold) {
-            if(decrement > Ampere) {
+        if((SocketOn[0].active || SocketOn[1].active || SocketOn[2].active || SocketOn[3].active) && !isHold) {
+            if(decrement > (Ampere + 1)) {
                 decrement -= (Time.deltaTime * speed);
                 var decrementInt = (int) decrement;
                 if(decrementInt < 10) {
@@ -154,6 +156,7 @@ public class FA_1 : MonoBehaviour
                 increment -= (Time.deltaTime * speed);
             }
         }
+    
     }
 
     public void changeMode() {
@@ -174,7 +177,6 @@ public class FA_1 : MonoBehaviour
         SocketOff[0].SetActive(false);
         Light[0].SetActive(false);
         Switch[0].transform.Rotate(30, 0, 0);
-        decrement = increment;
     }
 
     public void socket2ON() {
@@ -190,7 +192,6 @@ public class FA_1 : MonoBehaviour
         SocketOff[1].SetActive(false);
         Light[1].SetActive(false);
         Switch[1].transform.Rotate(30, 0, 0);
-        decrement = increment;
     }
 
     public void socket3ON() {
@@ -206,7 +207,6 @@ public class FA_1 : MonoBehaviour
         SocketOff[2].SetActive(false);
         Light[2].SetActive(false);
         Switch[2].transform.Rotate(30, 0, 0);
-        decrement = increment;
     }
 
     public void socket4ON() {
@@ -222,7 +222,6 @@ public class FA_1 : MonoBehaviour
         SocketOff[3].SetActive(false);
         Light[3].SetActive(false);
         Switch[3].transform.Rotate(30, 0, 0);
-        decrement = increment;
     }      
 
     public void holdButton() {
