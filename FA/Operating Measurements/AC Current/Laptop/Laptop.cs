@@ -66,6 +66,7 @@ public class Laptop : MonoBehaviour
 
         //if blue wire is connected
         if(ColliderBiru.isBlueConnected && !ColliderCoklat.isBrownConnected && !ClampOpening.isOpened && !isHold) {
+            decrement = increment;
             if(increment <= Ampere) {
                 increment+=(Time.deltaTime * speed);
                 var incrementInt = (int) increment;

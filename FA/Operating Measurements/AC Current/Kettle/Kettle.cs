@@ -46,7 +46,7 @@ public class Kettle : MonoBehaviour
         //switch to2/20A~
         if(switching) {
             switchingTime += Time.deltaTime;
-            if(RotarySwitch.transform.localEulerAngles.z < 270) {
+            if(RotarySwitch.transform.localEulerAngles.z < 300) {
                 RotarySwitch.transform.Rotate(0, 0, switchingTime);
             } else {
                 switching = false;
@@ -66,6 +66,7 @@ public class Kettle : MonoBehaviour
 
         //if blue wire is connected
         if(ColliderBiru.isBlueConnected && !ColliderCoklat.isBrownConnected && !ClampOpening.isOpened && !isHold) {
+            decrement = increment;
             if(increment <= Ampere) {
                 increment+=(Time.deltaTime * speed);
                 AmpereText[0].text = increment.ToString("F1");
