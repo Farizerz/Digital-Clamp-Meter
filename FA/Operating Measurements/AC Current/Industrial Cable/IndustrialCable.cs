@@ -46,7 +46,7 @@ public class IndustrialCable : MonoBehaviour
         //switch to2/20A~
         if(switching) {
             switchingTime += Time.deltaTime;
-            if(RotarySwitch.transform.localEulerAngles.z < 270) {
+            if(RotarySwitch.transform.localEulerAngles.z < 300) {
                 RotarySwitch.transform.Rotate(0, 0, switchingTime);
             } else {
                 switching = false;
@@ -176,8 +176,28 @@ public class IndustrialCable : MonoBehaviour
             !ClampOpening.isOpened && !isHold
         ) {
             ErrorReadingUI.SetActive(true);
+            DragInstructionUI.SetActive(false);
+            if(decrement > 0.01f) {
+                decrement -= (Time.deltaTime * speed);
+                var decrementInt = (int) decrement;
+                if(decrement > 99) {
+                    AmpereText[0].text = decrementInt.ToString("F0");
+                    AmpereText[1].text = decrementInt.ToString("F0");
+                }
+                if(decrement > 9 && increment < 100) {
+                    AmpereText[0].text = "0" + decrementInt.ToString("F0");
+                    AmpereText[1].text = "0" + decrementInt.ToString("F0");
+                }
+                if(decrement < 10) {
+                    AmpereText[0].text = "00" + decrementInt.ToString("F0");
+                    AmpereText[1].text = "00" + decrementInt.ToString("F0");
+                }
+                increment -= (Time.deltaTime * speed);
+            }
+
         } else {
             ErrorReadingUI.SetActive(false);
+            DragInstructionUI.SetActive(true);
         }
 
         //if no wires connected
