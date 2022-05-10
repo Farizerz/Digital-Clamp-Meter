@@ -5,6 +5,8 @@ using UnityEngine;
 public class ColliderSocket2 : MonoBehaviour
 {
     public static bool isDuaConnected;
+    public static float socketX, socketY, socketZ;
+    public float setSocketX, setSocketY, setSocketZ;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +16,7 @@ public class ColliderSocket2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isSatuConnected) {
+        if(isDuaConnected) {
             Debug.Log("Enter Dua");
         } else {
             Debug.Log("Exit Dua");
@@ -23,6 +25,9 @@ public class ColliderSocket2 : MonoBehaviour
 
     void OnTriggerEnter(Collider collider) {
         if(collider.gameObject.name == "BlackHandler") {
+            socketX = setSocketX;
+            socketY = setSocketY;
+            socketZ = setSocketZ; 
             isDuaConnected = true;
         }
     }

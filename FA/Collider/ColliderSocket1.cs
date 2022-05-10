@@ -5,12 +5,12 @@ using UnityEngine;
 public class ColliderSocket1 : MonoBehaviour
 {
     public static bool isSatuConnected;
-
-    public string ObjectName;
+    public static float socketX, socketY, socketZ;
+    public float setSocketX, setSocketY, setSocketZ;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -19,12 +19,16 @@ public class ColliderSocket1 : MonoBehaviour
         if(isSatuConnected) {
             Debug.Log("Enter Satu");
         } else {
-            Debug.Log("Exit Saty");
+            Debug.Log("Exit Satu");
         }       
     }
     
     void OnTriggerEnter(Collider collider) {
         if(collider.gameObject.name == "RedHandler") {
+            socketX = setSocketX;
+            socketY = setSocketY;
+            socketZ = setSocketZ; 
+
             isSatuConnected = true;
         }
     }
