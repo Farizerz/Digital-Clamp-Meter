@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class LineToNeutral : MonoBehaviour
+public class LineToLine : MonoBehaviour
 {
     [Header("Game Object")]
     public GameObject RotarySwitch;
@@ -117,18 +117,18 @@ public class LineToNeutral : MonoBehaviour
     }
 
     public void socketON() {
-        Volt += 213;
+        Volt += 387;
         SocketOn.SetActive(false);
         SocketOff.SetActive(true);
-        Switch.transform.Rotate(-30, 0, 0);
-        SocketText.text = "Press the red switch below to turn OFF\nthe elecrical load";
+        Switch.transform.Rotate(20, 0, 0);
+        SocketText.text = "Press the red switch\n below to turn OFF\nthe elecrical load";
     }
     public void socketOFF() {
-        Volt -= 213;
+        Volt -= 387;
         SocketOn.SetActive(true);
         SocketOff.SetActive(false);
-        Switch.transform.Rotate(30, 0, 0);
-        SocketText.text = "Press the red switch below to turn ON\nthe elecrical load";
+        Switch.transform.Rotate(-20, 0, 0);
+        SocketText.text = "Press the red switch\n below to turn ON\nthe elecrical load";
     }
 
     public void holdButton() {
