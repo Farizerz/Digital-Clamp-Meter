@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class DCVoltage : MonoBehaviour
+public class Resistance : MonoBehaviour
 {
     [Header("Game Object")]
     public GameObject RotarySwitch;
@@ -114,24 +114,13 @@ public class DCVoltage : MonoBehaviour
             if(increment <= Volt) {
                 increment+=(Time.deltaTime * speed);
                 var incrementInt = (int) increment;
-
-                if(isCorrectPosition) {
                     if(incrementInt <= 9) {
-                        VoltText[0].text = "0" + incrementInt.ToString();
-                        VoltText[1].text = "0" + incrementInt.ToString();
+                        VoltText[0].text = "0.0" + incrementInt.ToString();
+                        VoltText[1].text = "0.0" + incrementInt.ToString();
                     } else {
-                        VoltText[0].text = incrementInt.ToString();
-                        VoltText[1].text = incrementInt.ToString();                    
+                        VoltText[0].text = "0."+ incrementInt.ToString();
+                        VoltText[1].text = "0." + incrementInt.ToString();                    
                     }
-                } else {
-                    if(incrementInt <= 9) {
-                        VoltText[0].text = "-0" + incrementInt.ToString();
-                        VoltText[1].text = "-0" + incrementInt.ToString();
-                    } else {
-                        VoltText[0].text = "-" + incrementInt.ToString();
-                        VoltText[1].text = "-" + incrementInt.ToString();                    
-                    }                    
-                }
 
             }
         } 
