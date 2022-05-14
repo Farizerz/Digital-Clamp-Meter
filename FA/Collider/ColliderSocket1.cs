@@ -7,6 +7,11 @@ public class ColliderSocket1 : MonoBehaviour
     public static bool isSatuConnected;
     public static float socketX, socketY, socketZ;
     public float setSocketX, setSocketY, setSocketZ;
+
+    //khusus untuk continuity
+    public static int socketNumber;
+    public int setSocketNumber;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +32,10 @@ public class ColliderSocket1 : MonoBehaviour
         if(collider.gameObject.name == "RedHandler") {
             socketX = setSocketX;
             socketY = setSocketY;
-            socketZ = setSocketZ; 
+            socketZ = setSocketZ;
+
+            //khusus continuity
+            socketNumber = setSocketNumber; 
 
             isSatuConnected = true;
         }

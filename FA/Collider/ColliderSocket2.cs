@@ -7,6 +7,10 @@ public class ColliderSocket2 : MonoBehaviour
     public static bool isDuaConnected;
     public static float socketX, socketY, socketZ;
     public float setSocketX, setSocketY, setSocketZ;
+
+    //khusus untuk continuity
+    public static int socketNumber;
+    public int setSocketNumber;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +32,10 @@ public class ColliderSocket2 : MonoBehaviour
             socketX = setSocketX;
             socketY = setSocketY;
             socketZ = setSocketZ; 
+
+            //khusus continuity
+            socketNumber = setSocketNumber; 
+
             isDuaConnected = true;
         }
     }
