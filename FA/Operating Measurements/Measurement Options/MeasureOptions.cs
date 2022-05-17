@@ -32,13 +32,13 @@ public class MeasureOptions : MonoBehaviour
     public GameObject Diode;
     public GameObject Continuity;
 
-    [Header("Scripts")]
-    public GameObject ACCurrentScript;
-    public GameObject ACVoltageScript;
-    public GameObject DCVoltageScript;
-    public GameObject ResistanceScript;
-    public GameObject DiodeScript;
-    public GameObject ContinuityScript;
+    [Header("GameObject Red Pens")]
+    public GameObject[] redPen;
+    public float[] RedPosX, RedPosY, RedPosZ;
+
+    [Header("GameObject Black Pens")]
+    public GameObject[] blackPen;
+    public float[] BlackPosX, BlackPosY, BlackPosZ;    
 
     [Header("Modifier")]
     bool isShow;
@@ -103,23 +103,13 @@ public class MeasureOptions : MonoBehaviour
         Diode.SetActive(false);
         Continuity.SetActive(false);
 
-        //script
-        ACCurrentScript.GetComponent<Laptop>().enabled = true;
-        ACCurrentScript.GetComponent<Kettle>().enabled = false;
-        ACCurrentScript.GetComponent<IndustrialCable>.enabled = false;
-        ACVoltageScript.GetComponent<LineToNeutral>.enabled = false;
-        ACVoltageScript.GetComponent<LineToLine>.enabled = false;
-        DCVoltageScript.SetActive(false);
-        ResistanceScript.SetActive(false);
-        DiodeScript.SetActive(false);
-        ContinuityScript.SetActive(false);
-
         isShow = false;
         btnShow.SetActive(true);
         btnHide.SetActive(false);     
     } 
 
     public void ShowKettle() {
+        
         animationTitle.text = "AC Current - Kettle";
 
         //UI
@@ -143,17 +133,6 @@ public class MeasureOptions : MonoBehaviour
         Resistance.SetActive(false);
         Diode.SetActive(false);
         Continuity.SetActive(false);   
-
-        //script
-        ACCurrentScript.GetComponent<Laptop>().enabled = false;
-        ACCurrentScript.GetComponent<Kettle>().enabled = true;
-        ACCurrentScript.GetComponent<IndustrialCable>.enabled = false;
-        ACVoltageScript.GetComponent<LineToNeutral>.enabled = false;
-        ACVoltageScript.GetComponent<LineToLine>.enabled = false;
-        DCVoltageScript.SetActive(false);
-        ResistanceScript.SetActive(false);
-        DiodeScript.SetActive(false);
-        ContinuityScript.SetActive(false);
 
         isShow = false;
         btnShow.SetActive(true);
@@ -184,18 +163,7 @@ public class MeasureOptions : MonoBehaviour
         DCVoltage.SetActive(false);
         Resistance.SetActive(false);
         Diode.SetActive(false);
-        Continuity.SetActive(false);
-
-        //script
-        ACCurrentScript.GetComponent<Laptop>().enabled = false;
-        ACCurrentScript.GetComponent<Kettle>().enabled = false;
-        ACCurrentScript.GetComponent<IndustrialCable>.enabled = true;
-        ACVoltageScript.GetComponent<LineToNeutral>.enabled = false;
-        ACVoltageScript.GetComponent<LineToLine>.enabled = false;
-        DCVoltageScript.SetActive(false);
-        ResistanceScript.SetActive(false);
-        DiodeScript.SetActive(false);
-        ContinuityScript.SetActive(false);           
+        Continuity.SetActive(false);    
 
         isShow = false;
         btnShow.SetActive(true);
@@ -226,18 +194,13 @@ public class MeasureOptions : MonoBehaviour
         DCVoltage.SetActive(false);
         Resistance.SetActive(false);
         Diode.SetActive(false);
-        Continuity.SetActive(false); 
+        Continuity.SetActive(false);
 
-        //script
-        ACCurrentScript.GetComponent<Laptop>().enabled = false;
-        ACCurrentScript.GetComponent<Kettle>().enabled = false;
-        ACCurrentScript.GetComponent<IndustrialCable>.enabled = false;
-        ACVoltageScript.GetComponent<LineToNeutral>.enabled = true;
-        ACVoltageScript.GetComponent<LineToLine>.enabled = false;
-        DCVoltageScript.SetActive(false);
-        ResistanceScript.SetActive(false);
-        DiodeScript.SetActive(false);
-        ContinuityScript.SetActive(false);          
+        //set both pens to default position
+        redPen[0].transform.localPosition = new Vector3(RedPosX[0], RedPosY[0], RedPosZ[0]);
+        blackPen[0].transform.localPosition = new Vector3(BlackPosX[0], BlackPosY[0], BlackPosZ[0]);
+        ColliderSocket1.isSatuConnected = false;
+        ColliderSocket2.isDuaConnected = false; 
 
         isShow = false;
         btnShow.SetActive(true);
@@ -268,18 +231,13 @@ public class MeasureOptions : MonoBehaviour
         DCVoltage.SetActive(false);
         Resistance.SetActive(false);
         Diode.SetActive(false);
-        Continuity.SetActive(false);   
+        Continuity.SetActive(false);
 
-        //script
-        ACCurrentScript.GetComponent<Laptop>().enabled = false;
-        ACCurrentScript.GetComponent<Kettle>().enabled = false;
-        ACCurrentScript.GetComponent<IndustrialCable>.enabled = false;
-        ACVoltageScript.GetComponent<LineToNeutral>.enabled = false;
-        ACVoltageScript.GetComponent<LineToLine>.enabled = true;
-        DCVoltageScript.SetActive(false);
-        ResistanceScript.SetActive(false);
-        DiodeScript.SetActive(false);
-        ContinuityScript.SetActive(false);   
+        //set both pens to default position
+        redPen[1].transform.localPosition = new Vector3(RedPosX[1], RedPosY[1], RedPosZ[1]);
+        blackPen[1].transform.localPosition = new Vector3(BlackPosX[1], BlackPosY[1], BlackPosZ[1]);
+        ColliderSocket1.isSatuConnected = false;
+        ColliderSocket2.isDuaConnected = false;                       
 
         isShow = false;
         btnShow.SetActive(true);
@@ -311,16 +269,12 @@ public class MeasureOptions : MonoBehaviour
         Diode.SetActive(false);
         Continuity.SetActive(false);
 
-        //script
-        ACCurrentScript.GetComponent<Laptop>().enabled = false;
-        ACCurrentScript.GetComponent<Kettle>().enabled = false;
-        ACCurrentScript.GetComponent<IndustrialCable>.enabled = false;
-        ACVoltageScript.GetComponent<LineToNeutral>.enabled = false;
-        ACVoltageScript.GetComponent<LineToLine>.enabled = false;
-        DCVoltageScript.SetActive(true);
-        ResistanceScript.SetActive(false);
-        DiodeScript.SetActive(false);
-        ContinuityScript.SetActive(false);      
+        //set both pens to default position
+        redPen[2].transform.localPosition = new Vector3(RedPosX[2], RedPosY[2], RedPosZ[2]);
+        blackPen[2].transform.localPosition = new Vector3(BlackPosX[2], BlackPosY[2], BlackPosZ[2]);
+        ColliderPositif.isPositifConnected = false;
+        ColliderNegatif.isNegatifConnected = false;         
+           
 
         isShow = false;
         btnShow.SetActive(true);
@@ -352,16 +306,11 @@ public class MeasureOptions : MonoBehaviour
         Diode.SetActive(false);
         Continuity.SetActive(false);
 
-        //script
-        ACCurrentScript.GetComponent<Laptop>().enabled = false;
-        ACCurrentScript.GetComponent<Kettle>().enabled = false;
-        ACCurrentScript.GetComponent<IndustrialCable>.enabled = false;
-        ACVoltageScript.GetComponent<LineToNeutral>.enabled = false;
-        ACVoltageScript.GetComponent<LineToLine>.enabled = false;
-        DCVoltageScript.SetActive(false);
-        ResistanceScript.SetActive(true);
-        DiodeScript.SetActive(false);
-        ContinuityScript.SetActive(false);      
+        //set both pens to default position
+        redPen[3].transform.localPosition = new Vector3(RedPosX[3], RedPosY[3], RedPosZ[3]);
+        blackPen[3].transform.localPosition = new Vector3(BlackPosX[3], BlackPosY[3], BlackPosZ[3]);
+        ColliderPositif.isPositifConnected = false;
+        ColliderNegatif.isNegatifConnected = false;                     
 
         isShow = false;
         btnShow.SetActive(true);
@@ -393,16 +342,11 @@ public class MeasureOptions : MonoBehaviour
         Diode.SetActive(true);
         Continuity.SetActive(false);
 
-        //script
-        ACCurrentScript.GetComponent<Laptop>().enabled = false;
-        ACCurrentScript.GetComponent<Kettle>().enabled = false;
-        ACCurrentScript.GetComponent<IndustrialCable>.enabled = false;
-        ACVoltageScript.GetComponent<LineToNeutral>.enabled = false;
-        ACVoltageScript.GetComponent<LineToLine>.enabled = false;
-        DCVoltageScript.SetActive(false);
-        ResistanceScript.SetActive(false);
-        DiodeScript.SetActive(true);
-        ContinuityScript.SetActive(false);      
+        //set both pens to default position
+        redPen[4].transform.localPosition = new Vector3(RedPosX[4], RedPosY[4], RedPosZ[4]);
+        blackPen[4].transform.localPosition = new Vector3(BlackPosX[4], BlackPosY[4], BlackPosZ[4]);
+        ColliderPositif.isPositifConnected = false;
+        ColliderNegatif.isNegatifConnected = false;              
 
         isShow = false;
         btnShow.SetActive(true);
@@ -432,7 +376,13 @@ public class MeasureOptions : MonoBehaviour
         DCVoltage.SetActive(false);
         Resistance.SetActive(false);
         Diode.SetActive(false);
-        Continuity.SetActive(true);   
+        Continuity.SetActive(true);
+
+        //set both pens to default position
+        redPen[5].transform.localPosition = new Vector3(RedPosX[5], RedPosY[5], RedPosZ[5]);
+        blackPen[5].transform.localPosition = new Vector3(BlackPosX[5], BlackPosY[5], BlackPosZ[5]);
+        ColliderSocket1.isSatuConnected = false;
+        ColliderSocket2.isDuaConnected = false;                     
 
         isShow = false;
         btnShow.SetActive(true);
