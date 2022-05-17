@@ -32,6 +32,7 @@ public class DCVoltage : MonoBehaviour
 
     [Header("Modifier")]
     public static bool isDragging;
+    bool initialize;
     public int Volt = 0;
     float increment, decrement;
     public int speed; // untuk mengatur kecepatan perubahan angka
@@ -44,7 +45,7 @@ public class DCVoltage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        initialize = true;
     }
 
     // Update is called once per frame
@@ -89,6 +90,7 @@ public class DCVoltage : MonoBehaviour
                 switchingTime = 0;
                 RotarySwitchUI[0].SetActive(false);
                 RotarySwitchUI[1].SetActive(true);
+                initialize = false;
             }
         }
 
@@ -153,10 +155,10 @@ public class DCVoltage : MonoBehaviour
         }        
 
         //check if wire is currently dragged or not
-        if(isDragging && !RotarySwitchUI[0].active) {
+        if(isDragging && !RotarySwitchUI[0].active && !initialize) {
             DragInstructionUI.SetActive(false);
             ReleaseDragInstructionUI.SetActive(true);
-        } else if(!isDragging && !RotarySwitchUI[0].active) {
+        } else if(!isDragging && !RotarySwitchUI[0].active && !initialize) {
             DragInstructionUI.SetActive(true);
             ReleaseDragInstructionUI.SetActive(false);
         }        

@@ -29,6 +29,7 @@ public class FA_1 : MonoBehaviour
     public GameObject PlayButton;
     public GameObject PauseButton;
     public GameObject ResumeButton;
+    public GameObject DisplayUI;
 
     [Header("Modifier")]
     public static bool isDragging;
@@ -53,6 +54,7 @@ public class FA_1 : MonoBehaviour
             switchingTime += Time.deltaTime;
             if(RotarySwitch.transform.localEulerAngles.z < 270) {
                 RotarySwitch.transform.Rotate(0, 0, switchingTime);
+                DisplayUI.SetActive(true);
             } else {
                 switching = false;
                 ClampMeter[1].SetActive(true);

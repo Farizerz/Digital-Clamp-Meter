@@ -16,6 +16,7 @@ public class LineToLine : MonoBehaviour
     public GameObject BlackPen;
 
     [Header("UI")]
+    public GameObject[] DisplayUI;
     public GameObject RotarySwitchUI;
     public GameObject DragInstructionUI;
     public GameObject ReleaseDragInstructionUI;
@@ -29,6 +30,7 @@ public class LineToLine : MonoBehaviour
 
     [Header("Modifier")]
     public static bool isDragging;
+    bool initialize;
     public int Volt = 0;
     float increment, decrement;
     public int speed; // untuk mengatur kecepatan perubahan angka
@@ -38,7 +40,7 @@ public class LineToLine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        initialize = true;
     }
 
     // Update is called once per frame
@@ -59,9 +61,12 @@ public class LineToLine : MonoBehaviour
             switchingTime += Time.deltaTime;
             if(RotarySwitch.transform.localEulerAngles.z < 270) {
                 RotarySwitch.transform.Rotate(0, 0, -switchingTime);
+                DisplayUI[0].SetActive(true);
+                DisplayUI[1].SetActive(true);
             } else {
                 switching = false;
                 RotarySwitchUI.SetActive(false);
+                initialize = false;
             }
         }
 
@@ -102,10 +107,10 @@ public class LineToLine : MonoBehaviour
         }        
 
         //check if wire is currently dragged or not
-        if(isDragging && !RotarySwitchUI.active) {
+        if(isDragging && !RotarySwitchUI.active && !initialize) {
             DragInstructionUI.SetActive(false);
             ReleaseDragInstructionUI.SetActive(true);
-        } else if(!isDragging && !RotarySwitchUI.active) {
+        } else if(!isDragging && !RotarySwitchUI.active && !initialize) {
             DragInstructionUI.SetActive(true);
             ReleaseDragInstructionUI.SetActive(false);
         }        

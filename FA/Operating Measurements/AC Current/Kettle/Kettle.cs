@@ -16,6 +16,7 @@ public class Kettle : MonoBehaviour
     public GameObject[] HoldIndicator;
 
     [Header("UI")]
+    public GameObject[] DisplayUI;
     public GameObject RotarySwitchUI;
     public GameObject DragInstructionUI;
     public GameObject ReleaseDragInstructionUI;
@@ -46,8 +47,10 @@ public class Kettle : MonoBehaviour
         //switch to2/20A~
         if(switching) {
             switchingTime += Time.deltaTime;
-            if(RotarySwitch.transform.localEulerAngles.z < 300) {
+            if(RotarySwitch.transform.localEulerAngles.z < 270) {
                 RotarySwitch.transform.Rotate(0, 0, switchingTime);
+                DisplayUI[0].SetActive(true);
+                DisplayUI[1].SetActive(true);
             } else {
                 switching = false;
                 ClampMeter[1].SetActive(true);

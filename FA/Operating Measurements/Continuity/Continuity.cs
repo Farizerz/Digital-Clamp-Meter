@@ -30,6 +30,7 @@ public class Continuity : MonoBehaviour
 
     [Header("Modifier")]
     public static bool isDragging;
+    bool initialize;
     public float Volt = 0;
     float increment, decrement;
     public float speed; // untuk mengatur kecepatan perubahan angka
@@ -39,7 +40,7 @@ public class Continuity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        initialize = true;
     }
 
     // Update is called once per frame
@@ -119,10 +120,10 @@ public class Continuity : MonoBehaviour
         }
                 
         //check if wire is currently dragged or not
-        if(isDragging && !RotarySwitchUI.active) {
+        if(isDragging && !RotarySwitchUI.active && !initialize) {
             DragInstructionUI.SetActive(false);
             ReleaseDragInstructionUI.SetActive(true);
-        } else if(!isDragging && !RotarySwitchUI.active) {
+        } else if(!isDragging && !RotarySwitchUI.active && !initialize) {
             DragInstructionUI.SetActive(true);
             ReleaseDragInstructionUI.SetActive(false);
         }        

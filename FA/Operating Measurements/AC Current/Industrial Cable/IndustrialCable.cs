@@ -16,6 +16,7 @@ public class IndustrialCable : MonoBehaviour
     public GameObject[] HoldIndicator;
 
     [Header("UI")]
+    public GameObject[] DisplayUI;
     public GameObject RotarySwitchUI;
     public GameObject DragInstructionUI;
     public GameObject ReleaseDragInstructionUI;
@@ -48,6 +49,8 @@ public class IndustrialCable : MonoBehaviour
             switchingTime += Time.deltaTime;
             if(RotarySwitch.transform.localEulerAngles.z < 300) {
                 RotarySwitch.transform.Rotate(0, 0, switchingTime);
+                DisplayUI[0].SetActive(true);
+                DisplayUI[1].SetActive(true);                
             } else {
                 switching = false;
                 ClampMeter[1].SetActive(true);
@@ -197,7 +200,7 @@ public class IndustrialCable : MonoBehaviour
 
         } else {
             ErrorReadingUI.SetActive(false);
-            DragInstructionUI.SetActive(true);
+            //DragInstructionUI.SetActive(true);
         }
 
         //if no wires connected

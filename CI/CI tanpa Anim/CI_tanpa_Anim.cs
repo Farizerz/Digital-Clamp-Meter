@@ -36,6 +36,12 @@ public class CI_tanpa_Anim : MonoBehaviour
 
     public Setting_Material[] _komponen_;
     public Material mat_trans;
+
+    //edit fariz, ini untuk cek apakah ada component yang di select atau tidak
+    //fungsinya untuk mematikan/menghidupkan teks di TextOnObject.cs
+    public static bool isSelected;
+    //done edit fariz
+
     // Start is called before the first frame update
     void Start()
     {
@@ -133,6 +139,10 @@ public class CI_tanpa_Anim : MonoBehaviour
                                 _komponen_[i].MR_[j].materials = _komponen_[i].mat_array_comp[j]._material_ori;
                             }
                         }
+
+                        //edit fariz
+                        isSelected = false;
+                        //done edit fariz
                     }
                     else
                     {
@@ -177,6 +187,10 @@ public class CI_tanpa_Anim : MonoBehaviour
 
             kondisi = 1;
             prev_selected = comp_selected;
+
+            //edit fariz
+            isSelected = true;
+            //done edit fariz
         }
     }
 
